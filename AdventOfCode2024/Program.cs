@@ -11,3 +11,7 @@ Console.WriteLine($"Day 02 Part 2 result: {day2.ExecutePart2()}");
 var day3 = new Day03("/Users/dave/Projects/AdventOfCode2024/Input/03.txt");
 Console.WriteLine($"Day 03 Part 1 result: {day3.Execute()}");
 Console.WriteLine($"Day 03 Part 2 result: {day3.ExecutePart2()}");
+
+var day4 = new Day04("/Users/dave/Projects/AdventOfCode2024/Input/04.txt");
+Console.WriteLine($"Day 04 Part 1 result: {day4.Execute()}");
+Console.WriteLine($"Day 04 Part 2 result: {day4.ExecutePart2()}");
