@@ -4,7 +4,7 @@ namespace AdventOfCodeTests;
 
 public class Day05Tests
 {
-    private string _inputFilePath = "/Users/dave/Projects/AdventOfCode2024/Input/test05.txt";
+    private readonly string _inputFilePath = "/Users/dave/Projects/AdventOfCode2024/Input/test05.txt";
 
     [Test]
     public void Day05Part01ProducesExampleOutput()
