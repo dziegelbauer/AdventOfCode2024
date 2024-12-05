@@ -89,16 +89,15 @@ public class Day05
     private List<long> CorrectOrderingErrors(List<long> manual, Dictionary<long, List<long>> rules)
     {
         var correctIndices = new Dictionary<long, int>();
-        List<long> correctedManual = manual.ToList();;
-        List<long> goodPages;
-        
+        var correctedManual = manual.ToList();
+
         do
         {
             correctIndices.Clear();
             
             var badPages = correctedManual.Where(page => !PageFollowsRules(page, correctedManual, rules)).ToList();
 
-            goodPages = correctedManual.Where(page => PageFollowsRules(page, correctedManual, rules)).ToList();
+            var goodPages = correctedManual.Where(page => PageFollowsRules(page, correctedManual, rules)).ToList();
 
             foreach (var page in badPages)
             {
