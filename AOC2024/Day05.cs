@@ -128,8 +128,6 @@ public class Day05
             }
         } while(!ManualFollowsRules(correctedManual, rules));
 
-        
-
         return correctedManual;
     }
 }
