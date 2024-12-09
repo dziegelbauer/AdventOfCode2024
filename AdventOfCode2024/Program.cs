@@ -35,3 +35,9 @@ Console.WriteLine("Day 06");
 Console.WriteLine("-----");
 Console.WriteLine($"Day 06 Part 1 result: {day6.Execute()}");
 Console.WriteLine($"Day 06 Part 2 result: {day6.ExecutePart2()}");
+
+var day7 = new Day07("/Users/dave/Projects/AdventOfCode2024/Input/07.txt");
+Console.WriteLine("Day 07");
+Console.WriteLine("-----");
+Console.WriteLine($"Day 07 Part 1 result: {day7.Execute()}");
+Console.WriteLine($"Day 07 Part 2 result: {day7.ExecutePart2()}");
