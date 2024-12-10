@@ -131,7 +131,7 @@ public class Day09
         while (lastFoundIndex < highestValidIndex && lastFoundIndex != -1)
         {
             lastFoundIndex = finalDisk.IndexOf(null, lastFoundIndex);
-            if (lastFoundIndex != -1 && lastFoundIndex + fileLength < highestValidIndex)
+            if (lastFoundIndex != -1 && lastFoundIndex + fileLength - 1 < highestValidIndex)
             {
                 if(Enumerable.Range(lastFoundIndex, fileLength).All(index => finalDisk[index] is null))
                 {
