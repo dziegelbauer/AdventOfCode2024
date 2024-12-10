@@ -79,43 +79,42 @@ public class Day09
 
         foreach (var fileKey in _inputFile)
         {
-            if (long.TryParse(fileKey.ToString(), out var sectionLength))
+            var sectionLength = long.Parse(fileKey.ToString());
+            
+            if (nextFieldIsFile)
             {
-                if (nextFieldIsFile)
+                for (var i = 0; i < sectionLength; i++)
                 {
-                    for (var i = 0; i < sectionLength; i++)
-                    {
-                        finalDisk.Add(fileId);
-                    }
+                    finalDisk.Add(fileId);
+                }
 
-                    targetFileId = fileId;
-                    fileId++;
-                }
-                else
-                {
-                    for (var i = 0; i < sectionLength; i++)
-                    {
-                        finalDisk.Add(null);
-                    }
-                }
-                nextFieldIsFile = !nextFieldIsFile;
+                targetFileId = fileId;
+                fileId++;
             }
+            else
+            {
+                for (var i = 0; i < sectionLength; i++)
+                {
+                    finalDisk.Add(null);
+                }
+            }
+            nextFieldIsFile = !nextFieldIsFile;
         }
 
         while (targetFileId >= 0)
         {
-            var startOfLastFile = finalDisk.IndexOf(targetFileId);
-            var endOfLastFile = finalDisk.LastIndexOf(targetFileId);
-            var fileLength = endOfLastFile - startOfLastFile + 1;
+            var startOfTargetFile = finalDisk.IndexOf(targetFileId);
+            var endOfTargetFile = finalDisk.LastIndexOf(targetFileId);
+            var fileLength = endOfTargetFile - startOfTargetFile + 1;
             
-            var firstAvailablePosition = FindFirstFreeLocation(finalDisk, fileLength, startOfLastFile);
+            var firstAvailablePosition = FindFirstFreeLocation(finalDisk, fileLength, startOfTargetFile);
             
             if (firstAvailablePosition != -1)
             {
                 for (var i = 0; i < fileLength; i++)
                 {
                     finalDisk[firstAvailablePosition + i] = targetFileId;
-                    finalDisk[startOfLastFile + i] = null;
+                    finalDisk[startOfTargetFile + i] = null;
                 }
             }
 
@@ -132,13 +131,17 @@ public class Day09
         while (lastFoundIndex < highestValidIndex && lastFoundIndex != -1)
         {
             lastFoundIndex = finalDisk.IndexOf(null, lastFoundIndex);
-            if (lastFoundIndex != -1 && lastFoundIndex + fileLength <= finalDisk.Count)
+            if (lastFoundIndex != -1 && lastFoundIndex + fileLength < highestValidIndex)
             {
                 if(Enumerable.Range(lastFoundIndex, fileLength).All(index => finalDisk[index] is null))
                 {
                     return lastFoundIndex;
                 }
-                lastFoundIndex += fileLength;
+            }
+            
+            if (lastFoundIndex != -1)
+            {
+                lastFoundIndex++;
             }
         }
         
