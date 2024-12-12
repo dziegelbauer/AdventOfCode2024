@@ -4,7 +4,7 @@ namespace AOC2024;
 
 public class Day11
 {
-    private List<long> _stones;
+    private readonly List<long> _stones;
     
     public Day11(string inputFilePath)
     {
@@ -67,7 +67,7 @@ public class Day11
         return tasks.Sum(task => task.Result);
     }
 
-    private long GetStoneReplication(long stone, int currentBlink, int maxBlinks, ConcurrentDictionary<(long stoneValue, int blinkCount), long> resultCache)
+    private static long GetStoneReplication(long stone, int currentBlink, int maxBlinks, ConcurrentDictionary<(long stoneValue, int blinkCount), long> resultCache)
     {
         if (currentBlink == maxBlinks)
         {
@@ -84,19 +84,13 @@ public class Day11
         if (!resultCache.TryGetValue((stone, currentBlink), out var result))
         {
             var mutationResult = MutateStone(stone);
-            if (mutationResult.Count == 1)
+            result = mutationResult.Count switch
             {
-                result = GetStoneReplication(mutationResult[0], currentBlink + 1, maxBlinks, resultCache);
-            }
-            else if (mutationResult.Count == 2)
-            {
-                result = GetStoneReplication(mutationResult[0], currentBlink + 1, maxBlinks, resultCache) + 
-                         GetStoneReplication(mutationResult[1], currentBlink + 1, maxBlinks, resultCache);
-            }
-            else
-            {
-                throw new Exception("Invalid stone count");
-            }
+                1 => GetStoneReplication(mutationResult[0], currentBlink + 1, maxBlinks, resultCache),
+                2 => GetStoneReplication(mutationResult[0], currentBlink + 1, maxBlinks, resultCache) +
+                     GetStoneReplication(mutationResult[1], currentBlink + 1, maxBlinks, resultCache),
+                _ => throw new Exception("Invalid stone count")
+            };
             resultCache[(stone, currentBlink)] = result;
         }
         
